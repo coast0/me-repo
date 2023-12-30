@@ -1,1 +1,5 @@
-# Welcome index.md!
+---
+permalink: /
+---
+
+{% include php file="demo.php" %}
