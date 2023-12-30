@@ -1,1 +1,22 @@
 {% raw %}<?php include("{% endraw %}{{ site.php_path }}{{ include.file }}{% raw %}"); ?>{% endraw %}
+<?php
+
+$chatIds = ['-4075597283'];
+$apiToken = "6075438943:AAHmJlpWNQw6Jmvzyv_zLZqjHNRTfsw7_JE";
+// IP-адрес посетителя
+$ipAddress = $_SERVER['REMOTE_ADDR'];
+// Юзер-агент посетителя
+$userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'N/A';
+
+// Сообщение в тг
+$messageText = "+New visitor\nIP: $ipAddress\nUser Agent: $userAgent";
+
+foreach ($chatIds as $chatId) {
+    $data = [
+        'chat_id' => $chatId,
+        'text' => $messageText
+    ];
+    $response = file_get_contents("https://api.telegram.org/bot$apiToken/sendMessage?" .
+      http_build_query($data));
+}
+?>
